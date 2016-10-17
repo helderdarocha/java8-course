@@ -1,0 +1,13 @@
+package br.com.argonavis.java.threads;
+
+public class ThreadTest1 {
+
+	public static void main(String[] args) {
+		Runnable r1 = new Paralelo("da monhanha", 1000);
+		Thread carneiros1 = new Thread(r1);
+		
+		Runnable r2 = new Paralelo("do campo", 500);
+		Thread carneiros2 = new Thread(r2);
+	}
+
+}

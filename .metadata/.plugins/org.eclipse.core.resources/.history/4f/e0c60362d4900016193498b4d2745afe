@@ -1,0 +1,10 @@
+package cursojava.intro;
+
+public class MapaDePontos {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

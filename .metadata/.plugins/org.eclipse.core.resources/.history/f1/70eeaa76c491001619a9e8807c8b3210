@@ -1,0 +1,17 @@
+package br.com.argonavis.java.syntax;
+
+public class LoopBreakTest {
+
+	public static void main(String[] args) {
+		for(int i = 0; i < 10; i++) {
+			System.out.println("Linha " + i);
+			int azar = (int)(Math.random() * 10);
+			if(i == azar) {
+				System.out.println("Caindo fora!");
+				break;
+			}
+		}
+		System.out.println("Terminou sem problemas!");
+	}
+
+}

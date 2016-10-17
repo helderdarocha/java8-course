@@ -1,0 +1,9 @@
+package br.com.argonavis.java.classes.geometria;
+
+public abstract class Figura implements Superficie {
+	
+	@Override
+	public double perimetro() {
+		return (largura + altura) * 2;
+	}
+}

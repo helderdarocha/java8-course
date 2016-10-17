@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;App.java&apos; to &apos;java.io/src/main/java/br.com.argonavis.java.io&apos;&#x0A;- Original project: &apos;streams&apos;&#x0A;- Destination element: &apos;java.io/src/main/java/br.com.argonavis.java.io&apos;&#x0A;- Original element: &apos;br.com.argonavis.streams.App.java&apos;" description="Copy compilation unit" destination="=java.io/src\/main\/java&lt;br.com.argonavis.java.io" element1="/src\/main\/java&lt;br.com.argonavis.streams{App.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1476156918868" units="1" version="1.0"/>
+</session>

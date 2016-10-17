@@ -13,7 +13,6 @@ import br.com.argonavis.java8.jdbc.pool.DataSourceConnectionFactory;
 
 public class FilmeDAO {
 	
-	private String banco;
 	private DataSourceConnectionFactory ds;
 	
 	
@@ -27,12 +26,11 @@ public class FilmeDAO {
 	
 	public FilmeDAO(String banco) {
 		try {
-			ds = DataSourceConnectionFactory.create("postgresql");
+			ds = DataSourceConnectionFactory.create(banco);
 		} catch (IOException e) {
 			System.out.println("Conexão ao banco falhou! " + e);
 			e.printStackTrace();
 		}
-		this.banco = banco;
 	}
 	
     public Filme findByID(int id) {

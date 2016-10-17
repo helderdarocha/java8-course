@@ -1,0 +1,14 @@
+package br.com.argonavis.java.threads;
+
+public class Paralelo implements Runnable {
+    int x;
+    public void run() {
+        while (true) {
+            System.out.println(++x + " carneirinhos...");
+            try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {} // espera 1 segundo
+        }
+    }
+}
+

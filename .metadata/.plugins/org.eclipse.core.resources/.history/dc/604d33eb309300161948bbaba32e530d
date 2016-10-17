@@ -1,0 +1,19 @@
+package br.com.argonavis.java.threads;
+
+public class Paralelo implements Runnable {
+    private int contagem;
+    private String tipo;
+    
+    public Paralelo(String tipo) {
+    	this.tipo = tipo;
+    }
+    public void run() {
+        while (contagem < 60) {
+            System.out.println(++contagem + " carneirinhos " + tipo + "...");
+            try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {} // espera 1 segundo
+        }
+    }
+}
+

@@ -1,0 +1,7 @@
+package cursojava.intro;
+
+public class PrimeiroPrograma {
+	public statc void main(String[] args) {
+		system.out.println("Olá Java!");
+	}
+}

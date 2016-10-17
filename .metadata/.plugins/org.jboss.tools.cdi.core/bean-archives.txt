@@ -1,0 +1,6 @@
+path=/Users/helderdarocha/.m2/repository/javax/javaee-web-api/7.0/javaee-web-api-7.0.jar
+size=1315115
+archive=2
+path=/Users/helderdarocha/Code/StackOverflow/Java/webtest/target/endorsed/javaee-endorsed-api-7.0.jar
+size=189926
+archive=0

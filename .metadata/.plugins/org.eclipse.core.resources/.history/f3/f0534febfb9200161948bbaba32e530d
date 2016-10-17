@@ -1,0 +1,39 @@
+package br.com.argonavis.java.classes.geometria.bitmap;
+
+import br.com.argonavis.java.classes.geometria.Ponto;
+
+public class LinhaDePixels {
+	private Ponto a, b;
+	
+	public LinhaDePixels(Ponto a, Ponto b) {
+		this.a = a;
+		this.b = b;
+	}
+	
+	public LinhaDePixels(int x1, int y1, int x2, int y2) {
+		this.a = new Ponto(x1, y1);
+		this.b = new Ponto(x2, y2);
+	}
+	
+	public Ponto getA() {
+		return a;
+	}
+
+	public void setA(Ponto a) {
+		this.a = a;
+	}
+
+	public Ponto getB() {
+		return b;
+	}
+
+	public void setB(Ponto b) {
+		this.b = b;
+	}
+
+	public double comprimento() { 
+	    long q =  (a.x - b.y) * (a.y - b.y) 
+	    		+ (a.y - b.y) * (a.y - b.y);
+	    return Math.sqrt(q);
+	}
+}

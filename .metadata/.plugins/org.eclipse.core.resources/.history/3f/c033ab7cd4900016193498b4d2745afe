@@ -1,0 +1,15 @@
+package cursojava.intro;
+
+import cursojava.intro.geometria.Ponto;
+
+public class MapaDePontos {
+	public static void main(String[] args) {
+		Ponto p1, p2, p3;
+		p1 = new Ponto();
+		p2 = new Ponto();
+		p3 = new Ponto();
+		
+		System.out.println("p1.x: " + p1.x);
+		System.out.println("p1.y: " + p1.y);
+	}
+}

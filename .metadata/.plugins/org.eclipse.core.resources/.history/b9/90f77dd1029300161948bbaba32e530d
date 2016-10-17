@@ -1,0 +1,10 @@
+package br.com.argonavis.java.classes.geometria;
+
+public class Circulo {
+	private int raio;
+	
+	@Override
+	public double area() {
+		return Math.PI * raio * raio;
+	}
+}

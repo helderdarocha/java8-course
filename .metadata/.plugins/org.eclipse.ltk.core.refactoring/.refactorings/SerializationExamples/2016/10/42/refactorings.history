@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;com.argonavis.serializationexamples&apos; to &apos;java.io/src/main/java&apos;&#x0A;- Original project: &apos;SerializationExamples&apos;&#x0A;- Destination element: &apos;java.io/src/main/java&apos;&#x0A;- Original element: &apos;SerializationExamples/src/main/java/com.argonavis.serializationexamples&apos;" description="Copy package" destination="=java.io/src\/main\/java" element1="/src\/main\/java&lt;com.argonavis.serializationexamples" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1476156959436" version="1.0"/>
+</session>

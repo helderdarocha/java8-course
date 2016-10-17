@@ -3,7 +3,6 @@ package br.com.argonavis.java8.jdbc.pool;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;

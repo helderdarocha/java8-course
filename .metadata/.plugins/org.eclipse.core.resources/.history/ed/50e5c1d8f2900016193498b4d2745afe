@@ -1,0 +1,6 @@
+package cursojava.intro.geometria;
+
+public class Ponto {
+	public int x;
+	public int y;
+}

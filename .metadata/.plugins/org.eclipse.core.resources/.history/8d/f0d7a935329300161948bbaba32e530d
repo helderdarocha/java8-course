@@ -1,0 +1,28 @@
+package br.com.argonavis.java.threads;
+
+public class ThreadTest1 {
+
+	public static void main(String[] args) {
+		Paralelo r1 = new Paralelo("da monhanha", 1000);
+		Thread carneiros1 = new Thread(r1);
+		
+		Paralelo r2 = new Paralelo("do campo", 500);
+		Thread carneiros2 = new Thread(r2);
+		
+		carneiros1.start();
+		carneiros2.start();
+		
+		new Runnable() {
+			public void run() {
+				while(carneiros1.isAlive() && carneiros2.isAlive()) {
+					int sorte = (int)(Math.random() * 25);
+					if (sorte == 25) {
+						r1.contagem = 59;
+						r2.contagem = 25;
+					}
+				}
+			}
+		}
+	}
+
+}
