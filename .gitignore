@@ -1,0 +1,14 @@
+/java.javafx/target/
+/mavenproject1/target/
+/java.fx/target/
+/java.fx.anim/target/
+/java.fx.comp/target/
+/java9-mod/nbproject/private/
+/Java9Examples/nbproject/private/
+/Java9Examples2/nbproject/private/
+/Java9Examples/dist/
+/Java9Examples/build/
+/JavaModularApplication4/nbproject/private/
+/JettyTest/nbproject/private/
+/JettyTest/target/
+.metadata/*
