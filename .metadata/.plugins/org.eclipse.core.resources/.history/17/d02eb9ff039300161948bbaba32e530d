@@ -1,7 +1,0 @@
-package br.com.argonavis.java.classes.geometria;
-
-public abstract class Figura {
-	public double area() {
-		return 0;  // nao sabemos qual a área de uma Figura abstrata
-	}
-}

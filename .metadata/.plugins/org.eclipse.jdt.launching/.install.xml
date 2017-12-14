@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
-<entry loc="/Library/Java/JavaVirtualMachines/jdk1.7.0_07.jdk/Contents/Home" stamp="1346203817000"/>
-<entry loc="/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home" stamp="1464219330000"/>
-<entry loc="/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home" stamp="1385025307000"/>
-<entry loc="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home" stamp="1386338957000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/jdk1.7.0_07.jdk/Contents/Home" stamp="1346203817000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/jdk-9.0.1.jdk/Contents/Home" stamp="1506570863000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home" stamp="1488836091000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home" stamp="1385025307000"/>
+    <entry loc="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home" stamp="1386338957000"/>
 </dirs>

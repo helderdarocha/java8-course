@@ -4,10 +4,12 @@
 	</section>
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
+			<item value="br.com.argonavis"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="java-8-course"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -18,6 +20,7 @@
 			<item value="[name]"/>
 		</list>
 		<list key="version">
+			<item value="1.0"/>
 			<item value="0.0.1-SNAPSHOT"/>
 		</list>
 	</section>
@@ -72,25 +75,10 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
-			<item value="br.com.argonavis.java.util"/>
-			<item value="br.com.argonavis.java.exceptions"/>
-			<item value="br.com.argonavis.java.classes"/>
-			<item value="br.com.argonavis.java.syntax"/>
-			<item value="br.com.argonavis.java.threads"/>
-			<item value="br.com.argonavis.java.collections"/>
-			<item value="br.com.argonavis.java.io"/>
 		</list>
 		<list key="groupId">
-			<item value="br.com.argonavis"/>
 		</list>
 		<list key="artifactId">
-			<item value="java.util"/>
-			<item value="java.exceptions"/>
-			<item value="java.classes"/>
-			<item value="java.syntax"/>
-			<item value="java.threads"/>
-			<item value="java.collections"/>
-			<item value="java.io"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

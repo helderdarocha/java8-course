@@ -1,5 +1,6 @@
 package br.com.argonavis.java.classes;
 
+// Ambiguity and overloaded constructors
 public class Codigo {
 	private long ativacao;
 	private int parcial;

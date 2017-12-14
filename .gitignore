@@ -12,3 +12,5 @@
 /JettyTest/nbproject/private/
 /JettyTest/target/
 .metadata/*
+/.metadata/
+/.recommenders/

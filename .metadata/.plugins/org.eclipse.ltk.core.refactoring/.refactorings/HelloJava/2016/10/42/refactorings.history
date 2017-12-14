@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy package &apos;cursojava.intro.geometria&apos; to &apos;java.classes/src/main/java&apos;&#x0A;- Original project: &apos;HelloJava&apos;&#x0A;- Destination element: &apos;java.classes/src/main/java&apos;&#x0A;- Original element: &apos;HelloJava/src/cursojava.intro.geometria&apos;" description="Copy package" destination="=java.classes/src\/main\/java" element1="/src&lt;cursojava.intro.geometria" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1476547671568" version="1.0"/>
-</session>

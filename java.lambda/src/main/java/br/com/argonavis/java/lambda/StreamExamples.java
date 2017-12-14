@@ -1,6 +1,7 @@
 package br.com.argonavis.java.lambda;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,15 @@ public class StreamExamples {
 
 	public static void main(String[] args) {
 		Collection<Movie> movies = Movies.getMovieList();
+		
+		// for each
+		System.out.println("Movies");
+		movies.stream().forEach(m -> System.out.println("* " + m));
+		System.out.println();
+		
+		System.out.print("Sorted: [");
+		Arrays.stream(new int[]{9,2,5,1,7}).sorted().forEach(e -> System.out.print(e +" "));
+		System.out.println("]");
 
 		// count
 		long count = movies.stream()

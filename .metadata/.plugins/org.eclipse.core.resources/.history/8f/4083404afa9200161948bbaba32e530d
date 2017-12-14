@@ -1,7 +1,0 @@
-package br.com.argonavis.java.classes.geometria.bitmap;
-
-import br.com.argonavis.java.classes.geometria.Ponto;
-
-public class Pixel extends Ponto {
-
-}

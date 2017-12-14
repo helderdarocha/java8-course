@@ -1,5 +1,0 @@
-package br.com.argonavis.java.classes.geometria;
-
-public interface Superficie {
-	double area();
-}

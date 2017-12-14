@@ -9,6 +9,7 @@ public class ConditionalTest {
 		
 		String estacao = estacoes[sorte];
 		
+		// switch
 		switch(estacao) {
 		case "primavera": // se entrar aqui, continua duas estacoes
 			System.out.println("Primavera");
@@ -23,6 +24,19 @@ public class ConditionalTest {
 		default:
 			System.out.println("Viagem cancelada");
 		}
+		
+		// if-else
+		if(sorte < 3) {
+			System.out.println("Quente!");
+		} else if (sorte == 4) {
+			System.out.println("Cancelada!");
+		} else {
+			System.out.println("Frio!");
+		}
+		
+		// Ternary operator
+		String palavra = (sorte != 1) ? "posições" : "posição";
+		System.out.println("Antes há " + sorte + " " + palavra + "!");
 	}
 
 }
