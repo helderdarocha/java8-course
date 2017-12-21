@@ -1,11 +1,12 @@
-package br.com.argonavis.java.threads;
+package br.com.argonavis.java.threads.part1.synch;
 
+import java.util.Arrays;
 import java.util.Random;
 
-public class SyncStringArray {
-	char[] letters = {'1', '2', '3', '4', '5'};
+public class StringArray {
+	private char[] letters = {'1', '2', '3', '4', '5'};
 	
-	public synchronized void reverse() {
+	public void reverse() {
 		char tmp = letters[0];
 		letters[0] = letters[4];
 		try {Thread.sleep(new Random().nextInt(500));} catch (InterruptedException e) {}
@@ -18,7 +19,14 @@ public class SyncStringArray {
 	}
 	
 	@Override
-	public synchronized String toString() {
+	public String toString() {
 		return new String(letters);
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if(!(other instanceof StringArray)) return false;
+		StringArray array = (StringArray) other;
+		return Arrays.equals(letters, array.letters);
 	}
 }

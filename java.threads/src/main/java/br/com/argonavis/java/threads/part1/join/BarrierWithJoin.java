@@ -1,9 +1,9 @@
-package br.com.argonavis.java.threads;
+package br.com.argonavis.java.threads.part1.join;
 
-public class Barrier {
+public class BarrierWithJoin {
 	Thread[] threads;
 	
-	public Barrier(Thread... threads) {
+	public BarrierWithJoin(Thread... threads) {
 		this.threads = threads;
 	}
 	

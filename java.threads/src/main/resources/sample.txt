@@ -1,0 +1,65 @@
+Blocos e métodos synchronized
+
+Threads podem rodar em uma mesma CPU ou em CPUs diferentes. Do ponto de vista do programador não há diferença, mas é preciso estar atento aos efeitos de se executar um código de forma concorrente ou paralela. 
+Por exemplo, instruções poderão ser executadas fora de ordem, o que poderá produzir resultados inesperados em sequências de instruções que dependem de estados calculados anteriormente. Um bloco condicional que dependa do estado de uma variável modificada nos registradores de uma CPU poderá não funcionar como esperado se estiver rodando em uma CPU paralela pois o valor da variável pode não ter sido sincronizado. Um código que faz gravação em arquivos ou bancos de dados poderá corromper as informações, caso múltiplos threads tentem fazer alterações simultaneamente.
+Para evitar as situações acima é preciso sincronizar os dados e proteger blocos atômicos de instruções com travas de acesso exclusivo (mutex locks). Em Java isto pode ser obtido usando um bloco synchronized que obtém uma trava exclusiva a um objeto passado como argumento durante a execução do bloco:
+
+StringBuilder buffer = new StringBuilder();
+synchronized(buffer) { // a trava é obtida para o objeto buffer
+    buffer.append(prefixo);
+    buffer.append(texto);
+    buffer.append(sufixo);
+}
+
+Normalmente synchronized é usado para obter uma trava exclusiva para o objeto onde o bloco crítico é definido. Nesse caso, o argumento é sempre this:
+public class Repositorio {
+    private StringBuffer buffer;
+    ...
+    public void gravarDados(String prefixo, String texto, String sufixo) {
+        synchronized(this) { // a trava é obtida para um objeto Repositorio
+            buffer.append(prefixo);
+            buffer.append(texto);
+            buffer.append(sufixo);
+        }
+    }
+}
+
+É uma prática recomendada manter o bloco de código crítico dentro de um método próprio, assim é possível substituir o bloco pelo modificador synchronized, que irá obter acesso exclusivo ao objeto enquanto o método estiver sendo executado.
+public class Repositorio {
+    private StringBuffer buffer;
+    ...
+    public synchronized void gravarDados(String prefixo, String texto, String sufixo) {
+        buffer.append(prefixo);
+        buffer.append(texto);
+        buffer.append(sufixo);
+       }
+}
+
+Se o método for estático, a trava de acesso exclusivo irá afetar toda a classe, impedindo que outros threads criem objetos ou chamem quaisquer outros métodos da classe, sejam estáticos ou não.
+É preciso usar synchronized com cautela. O excesso de sincronização pode desde prejudicar a performance de uma aplicação como fazê-la travar devido a deadlock. Use apenas para proteger código que pode falhar se executado de forma concorrente. É sempre melhor procurar escrever código que seja imune a threads e não precise dessa proteção.
+Variáveis volatile
+Um bloco synchronized não serve apenas para garantir acesso exclusivo. Ele também realiza sincronização entre threads. Se um código que executa em várias CPUs acessa uma variável compartilhada, essa variável precisa ter seu estado sincronizado em todas elas. Geralmente as CPUs usam um cache local e, assim, uma variável que foi alterada em um CPU pode não ser imediatamente atualizada em outra. Se um algoritmo depende dessas variáveis ele poderá falhar.
+ 
+Incluir esse algoritmo dentro de um bloco synchronized já resolve o problema, mas nem sempre isso é possível ou desejável. Para garantir a sincronização dos dados, variáveis que precisam ser compartilhadas entre threads devem ser marcadas com o modificador volatile. Assim garante-se que ela seja acessível em todos os threads paralelos e concorrentes.
+No exemplo abaixo um thread testa a propriedade de um objeto acessível através de uma referência e outro thread modifica a variável done que é usada pelo primeiro thread para decidir se continua ou não uma tarefa infinita. Estas variáveis devem ser declaradas como volatile para garantir que seu estado seja sincronizado entre threads.
+
+public class WordFinder implements Runnable {
+    public volatile boolean done;
+    public volatile List<String> words = new ArrayList<>();
+    public void run() {
+        while(!done) {  // leitura feita por thread secundário
+            words.add(lookForWord("java")); // alteração feita por thread secundário
+        }
+    }
+}    
+    
+public class TestWordFinder {
+    public static void main(String[] args) {
+        Runnable runnable = new WordFinder();
+        new Thread(runnable).start();
+        while(runnable.words.size() <= 10) {} // leitura feita por thread main
+        runnable.done = true; // alteração feita por thread main
+    }
+}
+
+Um recurso protegido com synchronized é acessível a um único thread. Se o recurso estiver livre, o primeiro thread que chegar obtém a trava e os que chegarem depois ficam bloqueados. Quando a trava for liberada um deles terá acesso, mas, havendo mais de um, não há como saber qual (a ordem é indefinida e depende de regras de agendamento de threads que são dependentes de plataforma). Travas que respeitam ordem de chegada são chamadas de travas justas (fair locks). Essa característica (fairness) não é suportada em blocos synchronized, mas é implementada nos sincronizadores do pacote java.util.concurrent como ReentrantLock e Semaphore.

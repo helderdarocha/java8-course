@@ -1,12 +1,12 @@
-package br.com.argonavis.java.threads;
+package br.com.argonavis.java.threads.other;
 
-public class ThreadTest1 {
+public class SimpleThreadExample {
 
 	public static void main(String[] args) {
-		Paralelo r1 = new Paralelo("da montanha", 1000);
+		ParallelRunner r1 = new ParallelRunner("da montanha", 1000);
 		Thread carneiros1 = new Thread(r1);
 		
-		Paralelo r2 = new Paralelo("do campo", 500);
+		ParallelRunner r2 = new ParallelRunner("do campo", 500);
 		Thread carneiros2 = new Thread(r2);
 		
 		carneiros1.start();
@@ -25,7 +25,7 @@ public class ThreadTest1 {
 					}
 					try {
 						Thread.sleep(200);
-					} catch (InterruptedException e) {} // espera 1 segundo
+					} catch (InterruptedException ignored) {} 
 				}
 				System.out.println("No threads alive!");
 			}

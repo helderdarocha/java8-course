@@ -7,8 +7,12 @@
 			<item value="br.com.argonavis"/>
 		</list>
 		<list key="name">
+			<item value="java.string"/>
+			<item value="java.nio"/>
 		</list>
 		<list key="artifactId">
+			<item value="java.string"/>
+			<item value="java.nio"/>
 			<item value="java-8-course"/>
 		</list>
 		<list key="projectNameTemplate">

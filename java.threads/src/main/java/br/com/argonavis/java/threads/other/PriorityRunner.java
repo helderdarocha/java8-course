@@ -1,11 +1,15 @@
-package br.com.argonavis.java.threads;
+package br.com.argonavis.java.threads.other;
 
-public class PriorityParalelo implements Runnable {
+/**
+ * This example only works in single-core computers running preemptive scheduling operating systems.
+ * Avoid using Thread.yield() and thread priorities.
+ */
+public class PriorityRunner implements Runnable {
 	public volatile int contagem;
 
 	private String tipo;
 
-	public PriorityParalelo(String tipo) {
+	public PriorityRunner(String tipo) {
 		this.tipo = tipo;
 	}
 

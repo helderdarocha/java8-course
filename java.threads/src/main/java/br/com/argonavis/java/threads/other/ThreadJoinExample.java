@@ -1,12 +1,12 @@
-package br.com.argonavis.java.threads;
+package br.com.argonavis.java.threads.other;
 
-public class ThreadTest2 {
+public class ThreadJoinExample {
 
 	public static void main(String[] args) {
-		Paralelo r1 = new Paralelo("da montanha", 500);
+		ParallelRunner r1 = new ParallelRunner("da montanha", 500);
 		Thread carneiros1 = new Thread(r1, "Thread 1");
 		
-		Paralelo r2 = new Paralelo("do campo", 250);
+		ParallelRunner r2 = new ParallelRunner("do campo", 250);
 		Thread carneiros2 = new Thread(r2, "Thread 2");
 		
 		carneiros1.start();

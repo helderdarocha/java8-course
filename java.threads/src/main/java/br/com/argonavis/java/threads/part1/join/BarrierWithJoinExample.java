@@ -1,15 +1,15 @@
-package br.com.argonavis.java.threads;
+package br.com.argonavis.java.threads.part1.join;
 
 import java.util.Arrays;
 import java.util.Random;
 
-public class BarrierTest {
+public class BarrierWithJoinExample {
 
 	public static void main(String[] args) {
 		
 		int[] components = new int[3];
 		
-		Barrier b = new Barrier(
+		BarrierWithJoin b = new BarrierWithJoin(
 				new Thread(()   -> {
 					components[0] = new Random().nextInt(256);
 					try {Thread.sleep(1000);} catch (InterruptedException e) {}
