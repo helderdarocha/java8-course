@@ -1,8 +1,8 @@
 package br.com.argonavis.java.concurrency.atomic;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class SharedResource {
-	static AtomicInteger atomic = new AtomicInteger(2);
-	static int simple = 2;
+	static AtomicLong atomic = new AtomicLong(2);
+	static long simple = 2;
 }

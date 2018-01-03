@@ -9,7 +9,7 @@ public class AtomicTest {
 
 		new Thread(() -> {
 			System.out.println("operation1 before");
-			int result = SharedResource.atomic.addAndGet(8);
+			long result = SharedResource.atomic.addAndGet(8);
 			sleep(200);
 			System.out.println("Result 1: " + result); 
 			System.out.println("operation1 after");
@@ -17,7 +17,7 @@ public class AtomicTest {
 		
 		new Thread(() -> {
 			System.out.println("operation2 before");
-			int result = SharedResource.atomic.incrementAndGet();
+			long result = SharedResource.atomic.incrementAndGet();
 			sleep(200);
 			System.out.println("Result 2: " + result);
 			System.out.println("operation2 after");

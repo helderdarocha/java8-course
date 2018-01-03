@@ -1,78 +1,68 @@
 package br.com.argonavis.java.concurrency.synchronizers;
 
-import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+import br.com.argonavis.java.concurrency.Utils;
+
 interface Resource {
+	static final int PERMITS = 4;
 	void method1();
 	void method2();
 }
 
-class Guardian {
-	private static Semaphore permits = new Semaphore(2); // only 2 permits are available each time
+class ResourceFactory {
+	private Semaphore permits = new Semaphore(Resource.PERMITS); 
 
-	public static SharedResource getResource() {
+	public Resource getResource() {
 		try {
-			System.out.println(Thread.currentThread().getName() + " trying to get permit (" + permits.availablePermits() + " available)");
+			Utils.log(" ~~~ WAITING for permit (" + permits.availablePermits() + " available)");
 			permits.acquire();
-			System.out.println(Thread.currentThread().getName() + " got permit. " + permits.availablePermits() + " still available.");
+			Utils.log(" --> GOT permit! " + permits.availablePermits() + " still available.");
 		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return new SharedResource();
+			Thread.currentThread().interrupt();
+		} 
+		return new Resource() {
+			public synchronized void method1() {
+				Utils.log("<<< running method1 >>>");
+				Utils.simulatedPause(1000);
+			}
+			
+			public synchronized void method2() {
+				Utils.log("<<< running method2 >>>");
+				Utils.simulatedPause(1000);
+			}
+		};
 	}
 	
-	public static void close() {
-		System.out.println(Thread.currentThread().getName() + " releasing permit. ");
+	public void close() {
 		permits.release();
-		System.out.println(permits.availablePermits() + " still available.");
+		Utils.log(" /// RELEASING permit. " + permits.availablePermits() + " still available.");
 	}
-	
-	private static class SharedResource implements Resource {
-		public synchronized void method1() {
-			System.out.println(Thread.currentThread().getName() + " using shared method1.");
-			try { Thread.sleep(new Random().nextInt(1000)); } catch (InterruptedException e) {}
-			System.out.println(Thread.currentThread().getName() + " finished using shared method2.");
-		}
-		
-		public synchronized void method2() {
-			System.out.println(Thread.currentThread().getName() + " using shared method2.");
-			try { Thread.sleep(new Random().nextInt(1000)); } catch (InterruptedException e) {}
-			System.out.println(Thread.currentThread().getName() + " finished using shared method1.");
-		}
+}
+
+class Task implements Runnable {
+	private ResourceFactory factory;
+	public Task(ResourceFactory factory) {
+		this.factory = factory;
+	}
+	@Override public void run() {
+		Utils.simulatedPause(2000);
+		Resource resource = factory.getResource();
+		resource.method1();
+		resource.method2();
+		factory.close();
 	}
 }
 
 public class SemaphoreDemo {
+	public static final int THREADS = 8;
+	
 	public static void main(String[] args) {
-		
-		new Thread(() -> {
-			Resource resource = Guardian.getResource();
-			resource.method1();
-			resource.method2();
-			Guardian.close();
-		}).start();
-		
-		new Thread(() -> {
-			Resource resource = Guardian.getResource();
-			resource.method1();
-			resource.method2();
-			Guardian.close();
-		}).start();
-		
-		new Thread(() -> {
-			Resource resource = Guardian.getResource();
-			resource.method1();
-			resource.method2();
-			Guardian.close();
-		}).start();
-		
-		new Thread(() -> {
-			Resource resource = Guardian.getResource();
-			resource.method1();
-			resource.method2();
-			Guardian.close();
-		}).start();
-		
+		Thread[] threads = new Thread[THREADS];
+		ResourceFactory factory = new ResourceFactory();
+		for(int i = 0; i < threads.length; i++) {
+		    threads[i] = new Thread(new Task(factory), "Client "+(i+1));
+		    threads[i].start();
+		}
 	}
 }

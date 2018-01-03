@@ -9,61 +9,67 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.DoubleStream;
 
+import br.com.argonavis.java.concurrency.NamedPoolThreadFactory;
+import br.com.argonavis.java.concurrency.Utils;
 
-class CountDownLatchSpreadSheet {
-	volatile double[][] data;
-	CountDownLatch latch;
+class CountDownLatchSpreadSheet { 
+	final double[][] data;
 
 	public CountDownLatchSpreadSheet(double[][] data) {
 		this.data = data;
 	}
+	
+	private double computeSubtotal(double[] line) {
+		Utils.simulatedPause(500);
+		return DoubleStream.of(line).map(i->i).sum();
+	}
 
-	public List<Double> computeSum() {
-		int eventCount = data.length; 
-		ExecutorService es = Executors.newFixedThreadPool(eventCount); 
-		List<Double> lines = Collections.synchronizedList(new ArrayList<Double>());
+	public List<Double> computeSubtotals() {
+		final int numberOfLines = data.length; 
+		ExecutorService es = Executors.newFixedThreadPool(numberOfLines, new NamedPoolThreadFactory("THREAD LineItem")); 
+		List<Double> computedLines = Collections.synchronizedList(new ArrayList<Double>(numberOfLines));
 
-		latch = new CountDownLatch(eventCount); 
+		CountDownLatch latch = new CountDownLatch(numberOfLines); 
 		
 		for (double[] line : data) {
 			Runnable subtotalProcessor = () -> {
-				double subtotal = DoubleStream.of(line).map(i->i).sum();
-				lines.add(subtotal);
-				System.out.printf("Partial sum of "+Arrays.toString(line)+": R$%1.2f\n", subtotal);
+				double subtotal = computeSubtotal(line);
+				computedLines.add(subtotal);
+				System.out.printf(">>> Partial sum of "+Arrays.toString(line)+": $%1.2f\n", subtotal);
 				latch.countDown(); // calculation done
 				try {
-					System.out.println(Thread.currentThread().getName() + " waiting for countdown: " + latch.getCount() + " left.");
+					Utils.log(" waiting for countdown: " + latch.getCount() + " left.");
 					latch.await(); // wait to compute other partial sums
-					System.out.println(Thread.currentThread().getName() + " released.");
+					Utils.log(" released.");
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					Thread.currentThread().interrupt();
 				}
 			};
 			es.execute(subtotalProcessor);
 		}
 		
 		try {
-			System.out.println(Thread.currentThread().getName() + " waiting for partials: " + latch.getCount() + " left.");
+			Utils.log(" waiting for subtotals: " + latch.getCount() + " left.");
 			latch.await(); // main thread should wait until all partials are done
-			System.out.println("Main released. Will calculate total now.");
+			Utils.log(" released. Will calculate TOTAL now.");
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Thread.currentThread().interrupt();
 		} 
 
 		es.shutdown();
-		return lines;
+		return computedLines;
 	}
 }
 
 public class LatchDemo {
 	public static void main(String[] args) throws InterruptedException {
+		Thread.currentThread().setName("THREAD TotalOrder");
 		double[][] values = {{1.0, 2.0, 3.0}, {2.2, 2.2, 5.5, 8.3}, {1.34, 9.11}, {11.9}};
-		CountDownLatchSpreadSheet p = new CountDownLatchSpreadSheet(values);
-		
-		List<Double> lines = p.computeSum();
+		System.out.println("COMPUTING " + Arrays.deepToString(values));
+		List<Double> lines = new CountDownLatchSpreadSheet(values).computeSubtotals();
 		
 		// This will run only when the latch is opened!
-		Runnable totalSumProcesor = () -> System.out.printf("Total sum: R$%1.2f\n", lines.stream().map(i->i).reduce(Double::sum).get());
+		Runnable totalSumProcesor = () -> System.out.printf(">>> Total sum: $%1.2f\n", lines.stream().map(i->i).reduce(Double::sum).get());
 		(new Thread(totalSumProcesor)).start();
 	}
 }

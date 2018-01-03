@@ -10,35 +10,38 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.DoubleStream;
 
+import br.com.argonavis.java.concurrency.NamedPoolThreadFactory;
+import br.com.argonavis.java.concurrency.Utils;
+
 class CyclicBarrierSpreadSheet {
-	volatile double[][] data;
+	final double[][] data;
 
 	public CyclicBarrierSpreadSheet(double[][] data) {
 		this.data = data;
-	}
+	} 
 
-	public void computeSum() {
-		int threadCount = data.length; // smaller values will compute incomplete sums; larger values will not open barrier
-		// int threadCount = data.length / 2; // will open the barrier twice (the sum will be calculated at two stages)
-		ExecutorService es = Executors.newFixedThreadPool(threadCount); 
+	public void computeTotal() {
+		//int threadCount = data.length; // smaller values will compute incomplete sums; larger values will not open barrier
+		int threadCount = data.length / 2; // will open the barrier twice (the sum will be calculated at two stages)
+		ExecutorService es = Executors.newFixedThreadPool(threadCount, new NamedPoolThreadFactory("THREAD LineItem")); 
 		List<Double> lines = Collections.synchronizedList(new ArrayList<Double>());
 		
 		// This will run only when (and every time) the barrier is opened!
-		Runnable totalSumProcesor = () -> System.out.printf("Total sum: R$%1.2f\n", lines.stream().map(i->i).reduce(Double::sum).get());
+		Runnable totalSumProcesor = () -> System.out.printf(">>> Total: $%1.2f\n", lines.stream().map(i->i).reduce(Double::sum).get());
 		
-		CyclicBarrier barrier = new CyclicBarrier(threadCount, totalSumProcesor); // will wait for threadCount threads to arrive before releasing
+		CyclicBarrier barrier = new CyclicBarrier(threadCount, totalSumProcesor);
 		
 		for (double[] line : data) {
 			Runnable subtotalProcessor = () -> {
 				double subtotal = DoubleStream.of(line).map(i->i).sum();
 				lines.add(subtotal);
-				System.out.printf("Partial sum of "+Arrays.toString(line)+": R$%1.2f\n", subtotal);
+				System.out.printf("> Subtotal: "+Arrays.toString(line)+": $%1.2f\n", subtotal);
 				try {
-					System.out.println(Thread.currentThread().getName() + " waiting.");
+					Utils.log(" waiting.");
 					barrier.await(); // wait to compute other partial sums
-					System.out.println(Thread.currentThread().getName() + " released.");
+					Utils.log(" released.");
 				} catch (InterruptedException | BrokenBarrierException e) {
-					e.printStackTrace();
+					Thread.currentThread().interrupt();
 				}
 			};
 			es.execute(subtotalProcessor);
@@ -51,6 +54,6 @@ public class BarrierDemo {
 	public static void main(String[] args) {
 		double[][] values = {{1.0, 2.0, 3.0}, {2.2, 2.2, 5.5, 8.3}, {1.34, 9.11}, {11.9}};
 		CyclicBarrierSpreadSheet p = new CyclicBarrierSpreadSheet(values);
-		p.computeSum();
+		p.computeTotal();
 	}
 }

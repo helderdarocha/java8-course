@@ -1,18 +1,18 @@
 package br.com.argonavis.java.concurrency.locks;
 
-import java.util.Random;
+import static br.com.argonavis.java.concurrency.Utils.simulatedPause;
 
-public class NoLockTest {
+public class NoLockExample {
 
 	public static void main(String[] args) {
 		new Thread(() -> {
 			System.out.println("operation1 before");
 			SharedResource.data[0] = 10;
-			sleep(100);
+			simulatedPause(100);
 			SharedResource.data[1] = 90;
-			sleep(200);
+			simulatedPause(200);
 			SharedResource.data[2] = SharedResource.data[0] + SharedResource.data[1];
-			sleep(200);
+			simulatedPause(200);
 			System.out.println(
 					SharedResource.data[0] + " + " + SharedResource.data[1] + " = " + SharedResource.data[2]);
 			System.out.println("operation1 after");
@@ -21,20 +21,16 @@ public class NoLockTest {
 		new Thread(() -> {
 			System.out.println("operation2 before");
 			SharedResource.data[0] = 5;
-			sleep(100);
+			simulatedPause(100);
 			SharedResource.data[1] = 7;
-			sleep(200);
+			simulatedPause(200);
 			SharedResource.data[2] = SharedResource.data[0] * SharedResource.data[1];
-			sleep(200);
+			simulatedPause(200);
 			System.out.println(
 					SharedResource.data[0] + " * " + SharedResource.data[1] + " = " + SharedResource.data[2]);
 			System.out.println("operation2 after");
 		}).start();
 
-	}
-	
-	public static void sleep(int maxTime) {
-		try { Thread.sleep(new Random().nextInt(maxTime)); } catch (InterruptedException e) {}
 	}
 
 }

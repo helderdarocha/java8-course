@@ -6,7 +6,7 @@ import java.util.concurrent.Exchanger;
 public class ExchangerDemo {
 
 	static Exchanger<String[]> exchanger = new Exchanger<>();
-	static String[] letters = { "A", "B", "C", "D", "E", "F" };
+	static String[] letters = { "A", "B", "C", "D", "E", "F" }; 
 	static String[] digits  = { "1", "2", "3", "4", "5", "6" };
 
 	public static void main(String[] args) {

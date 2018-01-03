@@ -1,21 +1,21 @@
 package br.com.argonavis.java.concurrency.locks;
 
-import java.util.Random;
+import static br.com.argonavis.java.concurrency.Utils.simulatedPause;
 
-public class SynchronizedTest {
+public class SynchronizedExample {
 
 	public static void main(String[] args) {
 
-		synchronized(SynchronizedTest.class) {
+		synchronized(SynchronizedExample.class) {
 			new Thread(() -> {
-				synchronized(SynchronizedTest.class) {
+				synchronized(SharedResource.class) {
 					System.out.println("operation1 before");
 					SharedResource.data[0] = 10;
-					sleep(100);
+					simulatedPause(100);
 					SharedResource.data[1] = 90;
-					sleep(200);
+					simulatedPause(200);
 					SharedResource.data[2] = SharedResource.data[0] + SharedResource.data[1];
-					sleep(200);
+					simulatedPause(200);
 					System.out.println(
 							SharedResource.data[0] + " + " + SharedResource.data[1] + " = " + SharedResource.data[2]);
 					System.out.println("operation1 after");
@@ -23,14 +23,14 @@ public class SynchronizedTest {
 			}).start();
 			
 			new Thread(() -> {
-				synchronized(SynchronizedTest.class) {
+				synchronized(SharedResource.class) {
 					System.out.println("operation2 before");
 					SharedResource.data[0] = 5;
-					sleep(100);
+					simulatedPause(100);
 					SharedResource.data[1] = 7;
-					sleep(200);
+					simulatedPause(200);
 					SharedResource.data[2] = SharedResource.data[0] * SharedResource.data[1];
-					sleep(200);
+					simulatedPause(200);
 					System.out.println(
 							SharedResource.data[0] + " * " + SharedResource.data[1] + " = " + SharedResource.data[2]);
 					System.out.println("operation2 after");
@@ -38,8 +38,5 @@ public class SynchronizedTest {
 			}).start();
 		}
 	}
-	
-	public static void sleep(int maxTime) {
-		try { Thread.sleep(new Random().nextInt(maxTime)); } catch (InterruptedException e) {}
-	}
+
 }

@@ -10,7 +10,7 @@ public class SimpleTest {
 		new Thread(() -> { //if first, result = 10, else 11
 			System.out.println("operation1 before");
 			sleep(200);
-			int result = SharedResource.simple += 8; // this operation *may* fail
+			long result = SharedResource.simple += 8; // this operation *may* fail
 			System.out.println("Result 1: " + result); // if fails result will be 2 or 3
 			System.out.println("operation1 after");
 		}).start();
@@ -18,7 +18,7 @@ public class SimpleTest {
 		new Thread(() -> { // if first, result = 3, else 11
 			System.out.println("operation2 before");
 			sleep(200);
-			int result = SharedResource.simple = SharedResource.simple + 1;  // this operation *may* fail
+			long result = SharedResource.simple = SharedResource.simple + 1;  // this operation *may* fail
 			System.out.println("Result 2: " + result); // if fails, result will be 2 or 10
 			System.out.println("operation2 after");
 		}).start();

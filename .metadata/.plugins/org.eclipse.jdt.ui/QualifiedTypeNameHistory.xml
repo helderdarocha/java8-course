@@ -4,7 +4,6 @@
     <fullyQualifiedTypeName name="cursojava.intro.geometria.Ponto"/>
     <fullyQualifiedTypeName name="br.com.argonavis.java.classes.FunctionalInterfaceTest.Interface"/>
     <fullyQualifiedTypeName name="java.util.Comparator"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="java.lang.Thread.State"/>
     <fullyQualifiedTypeName name="java.util.concurrent.ForkJoinPool"/>
@@ -18,11 +17,9 @@
     <fullyQualifiedTypeName name="java.nio.file.Files"/>
     <fullyQualifiedTypeName name="java.nio.file.Paths"/>
     <fullyQualifiedTypeName name="java.nio.channels.FileChannel.MapMode"/>
-    <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
     <fullyQualifiedTypeName name="java.util.concurrent.ExecutorService"/>
     <fullyQualifiedTypeName name="java.util.concurrent.CompletableFuture"/>
     <fullyQualifiedTypeName name="java.util.concurrent.Executors"/>
-    <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.util.Map.Entry"/>
     <fullyQualifiedTypeName name="java.util.Random"/>
@@ -31,4 +28,16 @@
     <fullyQualifiedTypeName name="java.net.ServerSocket"/>
     <fullyQualifiedTypeName name="java.io.BufferedReader"/>
     <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
+    <fullyQualifiedTypeName name="java.util.Collections"/>
+    <fullyQualifiedTypeName name="java.sql.Time"/>
+    <fullyQualifiedTypeName name="br.com.argonavis.java.threads.notify.Simulation"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.atomic.AtomicBoolean"/>
+    <fullyQualifiedTypeName name="java.time.Instant"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="java.time.ZoneOffset"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.util.Timer"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.locks.Lock"/>
+    <fullyQualifiedTypeName name="br.com.argonavis.java.concurrency.Utils"/>
 </qualifiedTypeNameHistroy>

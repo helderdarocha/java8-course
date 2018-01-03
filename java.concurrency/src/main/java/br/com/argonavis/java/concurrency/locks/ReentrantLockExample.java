@@ -1,59 +1,53 @@
 package br.com.argonavis.java.concurrency.locks;
 
-import java.util.Random;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.StampedLock;
+import static br.com.argonavis.java.concurrency.Utils.simulatedPause;
 
-public class StampedLockTest {
+import java.util.concurrent.locks.ReentrantLock;
+
+public class ReentrantLockExample {
 
 	public static void main(String[] args) {
-		StampedLock lock = new StampedLock();
+		ReentrantLock lock = new ReentrantLock();
 
 		new Thread(() -> {
-			long stamp = -1;
 			try {
-				stamp = lock.writeLock();
+				lock.lock();
 				System.out.println("operation1 before");
 				SharedResource.data[0] = 10;
-				sleep(100);
+				simulatedPause(100);
 				SharedResource.data[1] = 90;
-				sleep(200);
+				simulatedPause(200);
 				SharedResource.data[2] = SharedResource.data[0] + SharedResource.data[1];
-				sleep(200);
+				simulatedPause(200);
 				System.out.println(
 						SharedResource.data[0] + " + " + SharedResource.data[1] + " = " + SharedResource.data[2]);
 				System.out.println("operation1 after");
 			} finally {
 				System.out.println("unlocking");
-				lock.unlock(stamp);
+				lock.unlock();
 			}
 
 		}).start();
 
 		new Thread(() -> {
-			long stamp = -1;
 			try {
-				stamp = lock.writeLock();
+				lock.lock();
 				System.out.println("operation2 before");
-				SharedResource.data[0] = 5; 
-				sleep(100);
+				SharedResource.data[0] = 5;
+				simulatedPause(100);
 				SharedResource.data[1] = 7;
-				sleep(200);
-				SharedResource.data[2] = SharedResource.data[0] * SharedResource.data[1]; 
-				sleep(200);
+				simulatedPause(200);
+				SharedResource.data[2] = SharedResource.data[0] * SharedResource.data[1];
+				simulatedPause(200);
 				System.out.println(
 						SharedResource.data[0] + " * " + SharedResource.data[1] + " = " + SharedResource.data[2]);
 				System.out.println("operation2 after");
 
 			} finally {
 				System.out.println("unlocking");
-				lock.unlock(stamp);
+				lock.unlock();
 			}
 		}).start();
-	}
-	
-	public static void sleep(int maxTime) {
-		try { Thread.sleep(new Random().nextInt(maxTime)); } catch (InterruptedException e) {}
 	}
 
 }
