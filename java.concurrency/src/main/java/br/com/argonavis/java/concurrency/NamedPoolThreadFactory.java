@@ -4,8 +4,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 public class NamedPoolThreadFactory implements ThreadFactory {
-	
 	private String name;
+	private int threadCount = 0;
 	
 	public NamedPoolThreadFactory(String name) {
 		this.name = name;
@@ -14,9 +14,7 @@ public class NamedPoolThreadFactory implements ThreadFactory {
 	@Override
 	public Thread newThread(Runnable task) {
         Thread t = Executors.defaultThreadFactory().newThread(task);
-        String[] oldName = t.getName().split("-");
-        t.setName(name + "-" + oldName[oldName.length-3]);
+        t.setName(name + "-" + ++threadCount);
         return t;
 	}
-
 }
