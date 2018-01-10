@@ -1,7 +1,0 @@
-INDEX VERSION 1.3+/Users/helderdarocha/Code/JavaWorkspace/JavaCourse/java8-course/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-1614405073.index
-2531242703.index
-3037626111.index
-604198227.index
-3394305015.index
-206910673.index
